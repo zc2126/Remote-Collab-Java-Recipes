@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 
 class RecipeBook {
 
@@ -19,30 +17,69 @@ class RecipeBook {
 
         System.out.println(welcomeMessage);
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        while (true) {
+        File csvFile = new File("Recipes.csv");
+        try (FileWriter csvWriter = new FileWriter(csvFile, true)) {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            while (true) {
 
-            System.out.println("\nenter a command: ");
-            String input = reader.readLine();
-            if (input.toLowerCase().equals("exit")) {
-                break;
-            }
+                System.out.println("\nenter a command: ");
+                String input = reader.readLine();
+                if (input.toLowerCase().equals("exit")) {
+                    break;
+                }
 
-            switch (input.toLowerCase()) {
-                case "help" -> System.out.println("""
-                        help - display this message
-                        add - add a recipe
-                        list - list all recipes
-                        search - search for a recipe
-                        exit - exit the program
-                        """);
-                case "add" -> System.out.println("add");
-                case "list" -> System.out.println("list");
-                case "search" -> System.out.println("search");
-                default -> System.out.println("invalid command");
+                switch (input.toLowerCase()) {
+                    case "help":
+                        System.out.println("""
+                                help - display this message
+                                add - add a recipe
+                                list - list all recipes
+                                search - search for a recipe
+                                exit - exit the program
+                                """);
+                        break;
+                    case "add":
+                        while (true) {
+                            System.out.println("Enter the name of the recipe: ");
+                            String name = reader.readLine();
+                            if (name.isEmpty()) {
+                                System.out.println("Name cannot be empty");
+                                continue;
+                            }
+                            Recipe recipe = new Recipe(name);
+                            while (true) {
+                                System.out.println("Enter an ingredient (or press enter to finish): ");
+                                String ingredient = reader.readLine();
+                                if (ingredient.isEmpty()) {
+                                    break;
+                                }
+                                recipe.addIngredient(ingredient);
+                            }
+                            while (true) {
+                                System.out.println("Enter an instruction (or press enter to finish): ");
+                                String instruction = reader.readLine();
+                                if (instruction.isEmpty()) {
+                                    break;
+                                }
+                                recipe.addInstruction(instruction);
+                            }
+                            csvWriter.append("\n" + recipe.toCSV());
+                            System.out.println("Recipe added: " + recipe);
+                            break;
+                        }
+                        break;
+                    case "list":
+                        System.out.println("list");
+                        break;
+                    case "search":
+                        System.out.println("search");
+                        break;
+                    default:
+                        System.out.println("invalid command");
+                        break;
+                }
             }
         }
-
     }
 
 }
