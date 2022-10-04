@@ -46,7 +46,7 @@ class RecipeBook {
                                 System.out.println("Name cannot be empty");
                                 continue;
                             }
-                            Recipe recipe = new Recipe(name);
+                            CreateRecipe recipe = new CreateRecipe(name);
                             while (true) {
                                 System.out.println("Enter an ingredient (or press enter to finish): ");
                                 String ingredient = reader.readLine();
