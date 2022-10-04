@@ -8,7 +8,7 @@ TO DO:
  */
 
 public class ViewWholeRecipe {
-    public static void  main(String[] args) {
+    public static void  main(int recNum) {
         String fileLoc = "Recipes.csv";
 
         List<List<String>> recipe = new ArrayList<>();
@@ -26,7 +26,9 @@ public class ViewWholeRecipe {
         }
 
         //Arbitrary recipe number for testing - change later when search function complete
-        int recNum = 2, i = 2, j = 1;
+        //int recNum = 1;
+
+        int i = 2, j = 1;
         System.out.println(recipe.get(recNum).get(0));
 
         System.out.println("\nIngredients:");
