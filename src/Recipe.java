@@ -1,12 +1,12 @@
 import java.util.ArrayList;
 
-public class CreateRecipe {
+public class Recipe {
 
     private String name;
     private ArrayList<String> ingredients;
     private ArrayList<String> instructions;
 
-    public CreateRecipe(String name) {
+    public Recipe(String name) {
         this.name = name;
         this.ingredients = new ArrayList<>();
         this.instructions = new ArrayList<>();
