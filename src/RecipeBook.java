@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.*;
 
 class RecipeBook {
 
@@ -35,6 +36,7 @@ class RecipeBook {
                                 add - add a recipe
                                 list - list all recipes
                                 search - search for a recipe
+                                view - view a whole recipe
                                 exit - exit the program
                                 """);
                         break;
@@ -74,6 +76,15 @@ class RecipeBook {
                     case "search":
                         System.out.println("search");
                         break;
+
+                    case "view":
+                        Scanner scan = new Scanner(System.in);
+                        System.out.println("Enter recipe number: ");
+                        int recNum = scan.nextInt();
+                        ViewWholeRecipe.main(2);
+
+                        break;
+
                     default:
                         System.out.println("invalid command");
                         break;
