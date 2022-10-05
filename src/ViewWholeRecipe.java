@@ -1,5 +1,10 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /*
 TO DO:
@@ -8,23 +13,7 @@ TO DO:
  */
 
 public class ViewWholeRecipe {
-    public static void  main(int recNum) {
-        String fileLoc = "Recipes.csv";
-
-        List<List<String>> recipe = new ArrayList<>();
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(fileLoc));
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split(",");
-                recipe.add(Arrays.asList(parts));
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
+    public static void  main(List<List<String>> recipe, int recNum) {
         //Arbitrary recipe number for testing - change later when search function complete
         //int recNum = 1;
 
