@@ -19,6 +19,9 @@ class RecipeBook {
         System.out.println(welcomeMessage);
 
         File csvFile = new File("Recipes.csv");
+        List<List<String>> recipeBook = ImportRecipe.main();
+        System.out.println(recipeBook);
+
         try (FileWriter csvWriter = new FileWriter(csvFile, true)) {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             while (true) {
@@ -81,7 +84,7 @@ class RecipeBook {
                         Scanner scan = new Scanner(System.in);
                         System.out.println("Enter recipe number: ");
                         int recNum = scan.nextInt();
-                        ViewWholeRecipe.main(2);
+                        ViewWholeRecipe.main(recipeBook, recNum);
 
                         break;
 
