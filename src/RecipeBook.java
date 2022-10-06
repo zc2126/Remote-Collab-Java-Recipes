@@ -32,6 +32,7 @@ class RecipeBook {
                     break;
                 }
 
+                //System.out.println("Input start:" + input);
                 switch (input.toLowerCase()) {
                     case "help":
                         System.out.println("""
@@ -81,24 +82,41 @@ class RecipeBook {
                         System.out.println("search");
                         break;
 
-                    case "view whole":
-                        System.out.println("Enter recipe number: ");
-                        int recNum1 = Integer.parseInt(reader.readLine());
-                        ViewWholeRecipe.main(recipeBook, recNum1);
+                    case "view":
+                        while(true) {
+                            System.out.println("Would you like to view the entire recipe (enter 'entire') or instruction by instruction (enter 'line'):");
+                            System.out.println("Enter 'exit' to return to main menu.");
+                            String viewChoice = reader.readLine();
+                            switch (viewChoice.toLowerCase()) {
+                                case "entire":
+                                    System.out.println("Enter recipe number: ");
+                                    int recNum1 = Integer.parseInt(reader.readLine());
+                                    ViewRecipe.wholeRecipe(recipeBook, recNum1);
+                                    break;
 
-                        break;
+                                case "line":
+                                    System.out.println("Enter recipe number: ");
+                                    int recNum2 = Integer.parseInt(reader.readLine());
+                                    ViewRecipe.lineByLine(recipeBook, recNum2);
+                                    break;
 
-                    case "view line":
-                        System.out.println("Enter recipe number: ");
-                        int recNum2 = Integer.parseInt(reader.readLine());
-                        ViewLinebyLine.main(recipeBook, recNum2);
+                                case "exit":
+                                    break;
 
+                                default:
+                                    System.out.println("invalid command");
+                                    break;
+                            }
+                            break;
+                        }
                         break;
 
                     default:
                         System.out.println("invalid command");
                         break;
                 }
+                System.out.println("\n------------------------------");
+                System.out.println("Welcome to the Recipe Book!\nEnter a command to continue.\ntype 'help' for commands or 'exit' to quit");
             }
         }
     }
