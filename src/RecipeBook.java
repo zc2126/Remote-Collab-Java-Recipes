@@ -39,7 +39,8 @@ class RecipeBook {
                                 add - add a recipe
                                 list - list all recipes
                                 search - search for a recipe
-                                view - view a whole recipe
+                                view whole - view a whole recipe
+                                view line - view a recipe line by line
                                 exit - exit the program
                                 """);
                         break;
@@ -80,11 +81,17 @@ class RecipeBook {
                         System.out.println("search");
                         break;
 
-                    case "view":
-                        Scanner scan = new Scanner(System.in);
+                    case "view whole":
                         System.out.println("Enter recipe number: ");
-                        int recNum = scan.nextInt();
-                        ViewWholeRecipe.main(recipeBook, recNum);
+                        int recNum1 = Integer.parseInt(reader.readLine());
+                        ViewWholeRecipe.main(recipeBook, recNum1);
+
+                        break;
+
+                    case "view line":
+                        System.out.println("Enter recipe number: ");
+                        int recNum2 = Integer.parseInt(reader.readLine());
+                        ViewLinebyLine.main(recipeBook, recNum2);
 
                         break;
 
