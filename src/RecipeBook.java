@@ -69,6 +69,7 @@ class RecipeBook {
                                 recipe.addInstruction(instruction);
                             }
                             recipeBook.add(recipe);
+                            csvWriter.append(recipe.toCSV());
                             System.out.println("Recipe added: " + recipe);
                             break;
                         }
