@@ -1,7 +1,5 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 /*
 TO DO:
@@ -10,79 +8,64 @@ TO DO:
  */
 
 public class ViewRecipe {
-    public static void  wholeRecipe(List<List<String>> recipe, int recNum) {
-        //Arbitrary recipe number for testing - change later when search function complete
-        //int recNum = 1;
 
-        int i = 2, j = 1;
-        System.out.println(recipe.get(recNum).get(0));
-
-        System.out.println("\nIngredients:");
-        while (!recipe.get(recNum).get(i).equals("|")) {
-            System.out.println(recipe.get(recNum).get(i));
-            i++;
-        }
-        i++;
-
-        System.out.println("\nDirections:");
-        while (!recipe.get(recNum).get(i).equals("|")) {
-            System.out.println(j + ". " + recipe.get(recNum).get(i));
-            i++;
-            j++;
-        }
-        System.out.println("Recipe Complete");
-
-    }
-
-    public static void  lineByLine(List<List<String>> recipe, int recNum) {
-        //Arbitrary recipe number for testing - change later when search function complete
-        //int recNum = 1;
+    public static void main(ArrayList<Recipe> recipeBook) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-        int i = 2, j = 1;
-        System.out.println(recipe.get(recNum).get(0));
-
-        System.out.println("\nIngredients:");
-        while (!recipe.get(recNum).get(i).equals("|")) {
-            System.out.println(recipe.get(recNum).get(i));
-            i++;
-        }
-        i++;
-
-        while(true) {
-            System.out.println("\nPress enter to proceed to instructions");
-            String next = null;
-            try {
-                next = reader.readLine();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            if (next.isEmpty()) {
-                break;
-            }
-        }
-
-        System.out.println("\nDirections:");
-        while (!recipe.get(recNum).get(i).equals("|")) {
-            System.out.println(j + ". " + recipe.get(recNum).get(i));
-            i++;
-            j++;
-
-            while(true) {
-                System.out.println("\nPress enter for next instruction");
-                String next = null;
-                try {
-                    next = reader.readLine();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+        Recipe foundRecipe = null;
+        while (foundRecipe == null) {
+            System.out.println("");
+            System.out.println("Enter the name of a recipe, 'all' to view all recipes: ");
+            String name = reader.readLine();
+            System.out.println("");
+            if (name.toLowerCase().equals("all")) {
+                for (Recipe recipe : recipeBook) {
+                    System.out.println(recipe.getName());
                 }
-                if (next.isEmpty()) {
+                System.out.println("");
+                continue;
+            }
+
+            for (Recipe recipe : recipeBook) {
+                if (recipe.getName().toLowerCase().equals(name.toLowerCase())) {
+                    foundRecipe = recipe;
+                    System.out.println("\n------------------------------");
+                    System.out.println("Recipe found: " + foundRecipe.getName());
+                    System.out.println("");
                     break;
                 }
             }
         }
+        System.out.println("Enter 'whole' to view the whole recipe or 'line' to view it line by line: ");
 
-        System.out.println("Recipe Complete");
-
+        String input = reader.readLine();
+        System.out.println("");
+        if (input.toLowerCase().equals("whole")) {
+            System.out.println(foundRecipe.toString());
+            System.out.println("");
+        } else if (input.toLowerCase().equals("line")) {
+            System.out.println("");
+            System.out.println("Name:\n" + foundRecipe.getName());
+            System.out.println("");
+            System.out.println("Ingredients: ");
+            for (String ingredient : foundRecipe.getIngredients()) {
+                System.out.println(ingredient);
+            }
+            System.out.println("");
+            System.out.println("Instructions: ");
+            int instruction = 0;
+            while (instruction < foundRecipe.getInstructions().size()) {
+                System.out.println("enter to continue or 'exit' ");
+                String exit = reader.readLine();
+                if (exit.toLowerCase().equals("exit")) {
+                    break;
+                } else {
+                    System.out.println(foundRecipe.getInstructions().get(instruction));
+                    System.out.println("");
+                    instruction++;
+                }
+            }
+        } else {
+            System.out.println("Invalid input");
+        }
     }
 }
